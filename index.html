@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YB HUB</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="portal" class="screen portal active">
+<h1>YB HUB</h1>
+<p>LIFE / WORK 선택</p>
+<div class="card">
+<button class="life-btn" onclick="show('lifeLogin')">🐶 LIFE SPACE</button>
+<button class="work-btn" onclick="show('workLogin')">🏢 WORK SPACE</button>
+</div>
+</div>
+
+<div id="lifeLogin" class="screen life">
+<div class="card">
+<h2>LIFE LOGIN</h2>
+<input type="password" placeholder="LIFE 비밀번호">
+<button class="life-btn" onclick="show('lifeMain')">Enter</button>
+</div>
+</div>
+
+<div id="workLogin" class="screen work">
+<div class="card">
+<h2>WORK LOGIN</h2>
+<input type="password" placeholder="WORK 비밀번호">
+<button class="work-btn" onclick="show('workMain')">Enter</button>
+</div>
+</div>
+
+<div id="lifeMain" class="screen life">
+<div class="card">
+<h2>🐶 LIFE SPACE</h2>
+<p>밤비 🖤 블랙탄 닥스</p>
+<p>탄이 🤍 화이트 폼피츠</p>
+<p>🔮 오늘 운세 ★★★★☆</p>
+<textarea rows="5" placeholder="오늘 일기"></textarea>
+<button class="life-btn" onclick="show('portal')">나가기</button>
+</div>
+</div>
+
+<div id="workMain" class="screen work">
+<div class="card">
+<h2>🏢 WORK SPACE</h2>
+<p>기사관리: 김OO / 박OO</p>
+<input value="공장점검">
+<input value="10:00">
+<button class="work-btn" onclick="alarmTest()">5분전 알림</button>
+<button class="work-btn" onclick="show('portal')">나가기</button>
+</div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

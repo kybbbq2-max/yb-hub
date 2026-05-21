@@ -1,0 +1,10 @@
+body{margin:0;font-family:Arial;background:#eef2f7}
+.screen{display:none;min-height:100vh;padding:20px}
+.active{display:block}
+.portal{background:linear-gradient(135deg,#1456a5,#6ea3e8);color:white}
+.life{background:#eef5ea}
+.work{background:#f5f8fc}
+.card{background:white;padding:20px;border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,.08);margin-top:20px}
+button,input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;font-size:16px}
+.life-btn{background:#6f8f72;color:white;border:none}
+.work-btn{background:#1456a5;color:white;border:none}
