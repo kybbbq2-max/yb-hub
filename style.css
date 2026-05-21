@@ -1,10 +1,150 @@
-body{margin:0;font-family:Arial;background:#eef2f7}
-.screen{display:none;min-height:100vh;padding:20px}
-.active{display:block}
-.portal{background:linear-gradient(135deg,#1456a5,#6ea3e8);color:white}
-.life{background:#eef5ea}
-.work{background:#f5f8fc}
-.card{background:white;padding:20px;border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,.08);margin-top:20px}
-button,input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:10px;font-size:16px}
-.life-btn{background:#6f8f72;color:white;border:none}
-.work-btn{background:#1456a5;color:white;border:none}
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+background:#eef2f7;
+}
+
+*{
+box-sizing:border-box;
+}
+
+.screen{
+display:none;
+min-height:100vh;
+padding:20px;
+}
+
+.active{
+display:block;
+}
+
+.portal{
+background:linear-gradient(135deg,#1456a5,#6ea3e8);
+color:white;
+}
+
+.life{
+background:#eef5ea;
+}
+
+.work{
+background:#f5f8fc;
+}
+
+.hero{
+text-align:center;
+padding-top:40px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:18px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+margin:16px 0;
+}
+
+button,
+input,
+textarea{
+width:100%;
+padding:14px;
+margin:8px 0;
+border-radius:12px;
+font-size:16px;
+border:1px solid #d8d8d8;
+}
+
+button{
+cursor:pointer;
+border:none;
+font-weight:600;
+}
+
+.life-btn{
+background:#6f8f72;
+color:white;
+}
+
+.work-btn{
+background:#1456a5;
+color:white;
+}
+
+.ghost-btn{
+background:#e5e5e5;
+color:#333;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px;
+}
+
+.topbar button{
+width:auto;
+padding:10px 16px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+}
+
+.login-card{
+max-width:420px;
+margin:60px auto;
+}
+
+.dogs{
+font-size:18px;
+margin-bottom:12px;
+}
+
+.mood-row{
+display:flex;
+gap:8px;
+}
+
+.mood-row button{
+background:white;
+border:1px solid #ddd;
+font-size:24px;
+}
+
+ul{
+padding-left:20px;
+}
+
+li{
+margin:8px 0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+li button{
+width:auto;
+padding:6px 10px;
+background:#d9534f;
+color:white;
+}
+
+#driverList div{
+padding:12px;
+border-bottom:1px solid #eee;
+cursor:pointer;
+}
+
+#driverList div:hover{
+background:#f5f5f5;
+}
+
+@media(max-width:768px){
+.grid{
+grid-template-columns:1fr;
+}
+}
