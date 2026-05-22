@@ -1,13 +1,6 @@
 const LIFE_PASSWORD = "1234";
 const WORK_PASSWORD = "5678";
 
-const drivers = [
-  { name: "김OO", status: "운행중" },
-  { name: "박OO", status: "대기" },
-  { name: "이OO", status: "휴무" },
-  { name: "최OO", status: "점검중" }
-];
-
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(screen=>{
     screen.classList.remove('active');
@@ -15,6 +8,7 @@ function showScreen(id){
   document.getElementById(id).classList.add('active');
 }
 
+/* LOGIN */
 function loginLife(){
   const pw = document.getElementById('lifePw').value;
 
@@ -33,8 +27,8 @@ function loginWork(){
 
   if(pw === WORK_PASSWORD){
     showScreen('workMain');
-    renderDrivers();
-    loadSap();
+    renderTasks();
+    updateKPI();
   }else{
     alert("WORK 비밀번호 틀림");
   }
@@ -95,7 +89,7 @@ function generateFortune(){
   const fortunes = [
     "오늘 집중력 최고 🔥",
     "좋은 소식이 들어옵니다 🍀",
-    "무리하지 말고 컨디션 관리 ☕",
+    "무리하지 말고 쉬어가기 ☕",
     "결정 미루지 말기 👀"
   ];
 
@@ -110,48 +104,84 @@ function setMood(mood){
   document.getElementById('moodResult').innerText = `${mood} 기록됨`;
 }
 
-/* WORK */
-function renderDrivers(){
-  const list = document.getElementById('driverList');
-  list.innerHTML = '';
-
-  drivers.forEach(driver=>{
-    const div = document.createElement('div');
-    div.innerHTML = `
-      <strong>${driver.name}</strong><br>
-      <small>${driver.status}</small>
-    `;
-    list.appendChild(div);
-  });
+/* WORK TASK DB */
+function getTasks(){
+  return JSON.parse(localStorage.getItem('yb_tasks') || '[]');
 }
 
-function searchDrivers(){
-  const keyword = document.getElementById('driverSearch').value.toLowerCase();
-  const list = document.getElementById('driverList');
+function saveTask(){
+  const title = document.getElementById('taskTitle').value;
+  const type = document.getElementById('taskType').value;
+  const owner = document.getElementById('taskOwner').value;
+  const memo = document.getElementById('taskMemo').value;
+
+  if(!title) return;
+
+  const tasks = getTasks();
+
+  tasks.push({
+    title,
+    type,
+    owner,
+    memo,
+    createdAt:new Date().toLocaleString()
+  });
+
+  localStorage.setItem('yb_tasks', JSON.stringify(tasks));
+
+  document.getElementById('taskTitle').value = '';
+  document.getElementById('taskOwner').value = '';
+  document.getElementById('taskMemo').value = '';
+
+  renderTasks();
+  updateKPI();
+}
+
+function renderTasks(){
+  const list = document.getElementById('taskList');
+  const keyword = document.getElementById('searchInput').value.toLowerCase();
 
   list.innerHTML = '';
 
-  drivers
-    .filter(driver => driver.name.toLowerCase().includes(keyword))
-    .forEach(driver=>{
+  getTasks()
+    .filter(task =>
+      task.title.toLowerCase().includes(keyword) ||
+      task.type.toLowerCase().includes(keyword) ||
+      task.owner.toLowerCase().includes(keyword) ||
+      task.memo.toLowerCase().includes(keyword)
+    )
+    .reverse()
+    .forEach((task,index)=>{
       const div = document.createElement('div');
+
       div.innerHTML = `
-        <strong>${driver.name}</strong><br>
-        <small>${driver.status}</small>
+        <strong>${task.type}</strong> | ${task.title}<br>
+        담당: ${task.owner || '-'}<br>
+        메모: ${task.memo || '-'}<br>
+        <small>${task.createdAt}</small><br><br>
+        <button onclick="deleteTask(${index})">삭제</button>
       `;
+
       list.appendChild(div);
     });
 }
 
-function saveSap(){
-  const memo = document.getElementById('sapMemo').value;
-  localStorage.setItem('yb_sap', memo);
-  alert("SAP 메모 저장 완료");
+function deleteTask(index){
+  const tasks = getTasks();
+  tasks.splice(tasks.length - 1 - index,1);
+  localStorage.setItem('yb_tasks', JSON.stringify(tasks));
+  renderTasks();
+  updateKPI();
 }
 
-function loadSap(){
-  const saved = localStorage.getItem('yb_sap');
-  if(saved){
-    document.getElementById('sapMemo').value = saved;
-  }
+function updateKPI(){
+  const tasks = getTasks();
+
+  const ship = tasks.filter(t=>t.type==="출하").length;
+  const returns = tasks.filter(t=>t.type==="반품").length;
+  const inspect = tasks.filter(t=>t.type==="공장점검").length;
+
+  document.getElementById('shipCount').innerText = ship;
+  document.getElementById('returnCount').innerText = returns;
+  document.getElementById('inspectCount').innerText = inspect;
 }
