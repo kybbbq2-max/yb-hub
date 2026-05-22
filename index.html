@@ -1,59 +1,94 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>YB HUB</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>YB HUB</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="portal" class="screen active portal">
-  <div class="hero">
-    <h1>YB HUB</h1>
-    <p>나만의 LIFE / WORK HUB</p>
-  </div>
+<!-- PORTAL -->
+<section id="portal" class="screen active portal">
+  <div class="portal-overlay"></div>
 
-  <div class="card">
-    <button class="life-btn" onclick="showScreen('lifeLogin')">🐶 LIFE SPACE</button>
-    <button class="work-btn" onclick="showScreen('workLogin')">🏢 WORK SPACE</button>
-  </div>
-</div>
-
-<div id="lifeLogin" class="screen life">
-  <div class="card login-card">
-    <h2>🐶 LIFE LOGIN</h2>
-    <div class="dogs">🖤 밤비 & 🤍 탄이</div>
-    <input id="lifePw" type="password" placeholder="LIFE 비밀번호">
-    <button class="life-btn" onclick="loginLife()">입장</button>
-    <button class="ghost-btn" onclick="showScreen('portal')">뒤로</button>
-  </div>
-</div>
-
-<div id="workLogin" class="screen work">
-  <div class="card login-card">
-    <h2>🏢 WORK LOGIN</h2>
-    <input id="workPw" type="password" placeholder="WORK 비밀번호">
-    <button class="work-btn" onclick="loginWork()">입장</button>
-    <button class="ghost-btn" onclick="showScreen('portal')">뒤로</button>
-  </div>
-</div>
-
-<div id="lifeMain" class="screen life">
-  <div class="topbar">
-    <h2>🐶 LIFE SPACE</h2>
-    <button class="ghost-btn" onclick="showScreen('portal')">나가기</button>
-  </div>
-
-  <div class="grid">
-    <div class="card">
-      <h3>🔮 오늘 운세 HUB</h3>
-      <p id="fortuneText"></p>
-      <p id="avoidanceText"></p>
+  <div class="portal-content">
+    <div class="brand-box glass">
+      <h1>YB HUB</h1>
+      <p>Premium Life & Work Operating Space</p>
     </div>
 
-    <div class="card">
-      <h3>😊 오늘 기분</h3>
+    <div class="portal-actions">
+      <button class="glass portal-btn life-entry" onclick="showScreen('lifeLogin')">
+        <span class="icon">🐶</span>
+        <div>
+          <strong>LIFE SPACE</strong>
+          <small>오늘 하루 정리하기</small>
+        </div>
+      </button>
+
+      <button class="glass portal-btn work-entry" onclick="showScreen('workLogin')">
+        <span class="icon">🏢</span>
+        <div>
+          <strong>WORK SPACE</strong>
+          <small>업무 시작하기</small>
+        </div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- LIFE LOGIN -->
+<section id="lifeLogin" class="screen life">
+  <div class="login-shell">
+    <div class="login-card">
+      <div class="dog-hero">
+        <div class="dog-card">🖤 밤비</div>
+        <div class="dog-card">🤍 탄이</div>
+      </div>
+
+      <h2>LIFE LOGIN</h2>
+      <input id="lifePw" type="password" placeholder="LIFE 비밀번호">
+      <button class="life-btn" onclick="loginLife()">입장</button>
+      <button class="ghost-btn" onclick="showScreen('portal')">뒤로</button>
+    </div>
+  </div>
+</section>
+
+<!-- WORK LOGIN -->
+<section id="workLogin" class="screen work">
+  <div class="login-shell">
+    <div class="login-card work-login">
+      <h2>WORK LOGIN</h2>
+      <input id="workPw" type="password" placeholder="WORK 비밀번호">
+      <button class="work-btn" onclick="loginWork()">입장</button>
+      <button class="ghost-btn" onclick="showScreen('portal')">뒤로</button>
+    </div>
+  </div>
+</section>
+
+<!-- LIFE MAIN -->
+<section id="lifeMain" class="screen life">
+  <header class="life-header">
+    <div>
+      <h1>Good Evening, YB</h1>
+      <p>밤비와 탄이가 함께하는 LIFE SPACE</p>
+    </div>
+    <button class="ghost-btn" onclick="showScreen('portal')">나가기</button>
+  </header>
+
+  <div class="life-grid">
+    <div class="life-hero-card">
+      <div class="dog-visual">🐶 🐕</div>
+      <div>
+        <h2>오늘의 LIFE HUB</h2>
+        <p id="fortuneText"></p>
+        <p id="avoidanceText"></p>
+      </div>
+    </div>
+
+    <div class="life-card">
+      <h3>오늘 기분</h3>
       <div class="mood-row">
         <button onclick="setMood('🙂')">🙂</button>
         <button onclick="setMood('😐')">😐</button>
@@ -62,58 +97,79 @@
       </div>
       <p id="moodResult"></p>
     </div>
-  </div>
 
-  <div class="card">
-    <h3>📅 주간 일정</h3>
-    <div class="calendar-add">
-      <input id="calendarText" placeholder="일정 입력">
-      <button class="life-btn" onclick="addCalendar()">추가</button>
-    </div>
-    <ul id="calendarList"></ul>
-  </div>
-
-  <div class="card">
-    <h3>📝 일기</h3>
-    <textarea id="diaryText" rows="8" placeholder="오늘 있었던 일"></textarea>
-    <button class="life-btn" onclick="saveDiary()">일기 저장</button>
-  </div>
-</div>
-
-<div id="workMain" class="screen work">
-  <div class="topbar">
-    <h2>🏢 WORK SPACE</h2>
-    <button class="ghost-btn" onclick="showScreen('portal')">나가기</button>
-  </div>
-
-  <div class="grid">
-    <div class="card">
-      <h3>👷 기사 관리</h3>
-      <input id="driverSearch" placeholder="기사 검색" onkeyup="searchDrivers()">
-      <div id="driverList"></div>
+    <div class="life-card">
+      <h3>주간 일정</h3>
+      <div class="calendar-add">
+        <input id="calendarText" placeholder="일정 추가">
+        <button class="life-btn" onclick="addCalendar()">추가</button>
+      </div>
+      <ul id="calendarList"></ul>
     </div>
 
-    <div class="card">
-      <h3>🔔 공장점검 알림</h3>
-      <input id="alarmTitle" value="공장점검">
-      <input id="alarmTime" value="10:00">
-      <button class="work-btn" onclick="requestNotification()">알림 허용</button>
-      <button class="work-btn" onclick="testAlarm()">5분전 테스트</button>
+    <div class="life-card journal">
+      <h3>오늘의 저널</h3>
+      <textarea id="diaryText" rows="10" placeholder="오늘 있었던 일..."></textarea>
+      <button class="life-btn" onclick="saveDiary()">저장</button>
     </div>
   </div>
+</section>
 
-  <div class="card">
-    <h3>🚚 차량 지원</h3>
-    <textarea id="supportMemo" rows="4" placeholder="차량 지원 메모"></textarea>
-    <button class="work-btn" onclick="saveSupport()">저장</button>
-  </div>
+<!-- WORK MAIN -->
+<section id="workMain" class="screen work">
+  <div class="work-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">YB WORK</div>
+      <nav>
+        <button>📅 캘린더</button>
+        <button>👷 기사관리</button>
+        <button>🚚 차량지원</button>
+        <button>📝 SAP</button>
+        <button>🏢 거래처</button>
+        <button>📂 문서함</button>
+      </nav>
+      <button class="ghost-btn" onclick="showScreen('portal')">로그아웃</button>
+    </aside>
 
-  <div class="card">
-    <h3>📝 SAP 퀵메모</h3>
-    <textarea id="sapMemo" rows="4" placeholder="SAP 메모"></textarea>
-    <button class="work-btn" onclick="saveSap()">저장</button>
+    <main class="work-main">
+      <header class="work-top">
+        <h1>업무 운영 대시보드</h1>
+      </header>
+
+      <section class="kpi-grid">
+        <div class="kpi-card">📦 출하<br><strong>87</strong></div>
+        <div class="kpi-card">↩️ 반품<br><strong>12</strong></div>
+        <div class="kpi-card">🚚 차량지원<br><strong>9</strong></div>
+        <div class="kpi-card">🏭 공장점검<br><strong>14</strong></div>
+      </section>
+
+      <section class="calendar-shell">
+        <div class="calendar-header">
+          <h2>업무 캘린더</h2>
+          <button class="work-btn">+ 업무 등록</button>
+        </div>
+
+        <div class="calendar-placeholder">
+          월간 캘린더 UI (다음 단계 CRUD 연결)
+        </div>
+      </section>
+
+      <section class="work-bottom-grid">
+        <div class="work-panel">
+          <h3>기사 검색</h3>
+          <input id="driverSearch" placeholder="기사 검색" onkeyup="searchDrivers()">
+          <div id="driverList"></div>
+        </div>
+
+        <div class="work-panel">
+          <h3>SAP 메모</h3>
+          <textarea id="sapMemo" rows="6"></textarea>
+          <button class="work-btn" onclick="saveSap()">저장</button>
+        </div>
+      </section>
+    </main>
   </div>
-</div>
+</section>
 
 <script src="app.js"></script>
 </body>
